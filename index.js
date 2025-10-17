@@ -18,9 +18,15 @@ async function run() {
     await client.connect();
     const database = client.db("usersDb")
     const usersCollection = database.collection("users")
-    app.post('/users',(req,res)=>{
+
+    app.get('/users',async(req,res)=>{
+        const cursor = usersCollection.find()
+        const result = await cursor.toArray()
+        res.send(result)
+    })
+    app.post('/users',async(req,res)=>{
         const newUser = req.body;
-        const result = usersCollection.insertOne(newUser)
+        const result = await usersCollection.insertOne(newUser)
         res.send(result)
         console.log("Get data from :",req.body);
     })
