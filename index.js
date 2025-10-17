@@ -16,7 +16,12 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+    const database = client.db("usersDb")
+    const usersCollection = database.collection("users")
     app.post('/users',(req,res)=>{
+        const newUser = req.body;
+        const result = usersCollection.insertOne(newUser)
+        res.send(result)
         console.log("Get data from :",req.body);
     })
 
