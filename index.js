@@ -30,6 +30,9 @@ async function run() {
         res.send(result)
         console.log("Get data from :",req.body);
     })
+    app.delete('/users/:id',async(req,res)=>{
+        console.log(req.params.id);
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
